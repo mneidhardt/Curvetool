@@ -20,7 +20,6 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
     private int maxX, maxY;
     private int startX=0, startY=0;
     private int overPoint = -1;
-    private int overCPoint = -1;
     private boolean wholecurveselected=false;
     private boolean bothCtrlPoints=false;
     private Color backgroundColor = new Color(255,255,255);
@@ -153,12 +152,9 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
         int op = curve.overPoint(e.getX(), e.getY(), arcwidth);
 
 
-		/* NB! Clean up the confusion coming from having both overPoint and overCPoint.
-		   Should be possible to simplify. */
-
         if (op > -1) {
 		    System.out.println("Over point " + op);
-            if (curve.isControlPoint(op)) { overPoint = op; overCPoint = op; }
+            if (curve.isControlPoint(op)) { overPoint = op; }
             else                          { overPoint = op; }
         }
         else {
@@ -175,7 +171,6 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
 
     public void mouseReleased(MouseEvent e) {
         overPoint = -1;
-        overCPoint = -1;
         wholecurveselected=false;
         bothCtrlPoints=false;
         repaint();
