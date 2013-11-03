@@ -4,3 +4,7 @@ play around with curves.
 One use is just to have fun, another is to create graphic expressions
 that look like height curves (much like a map),
 another is to be able create GCODE for use in CNC/milling.
+
+I am not sure NURBS will ba a part of this anyway - the milling
+or CNC machines apparently just use linear approximation of curves
+using G01, and if that's the case, there's no need for me to intriduce NURBS.
