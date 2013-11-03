@@ -1,0 +1,6 @@
+Curvetool, mapmaker, intrpol - I will eventually find a lasting name.
+The point of the software is to make a tool that helps 
+play around with curves.
+One use is just to have fun, another is to create graphic expressions
+that look like height curves (much like a map),
+another is to be able create GCODE for use in CNC/milling.
