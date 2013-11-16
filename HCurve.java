@@ -1,7 +1,8 @@
 import java.util.*;
+/*
 import java.awt.*;
 import javax.swing.*;
-
+*/
 
 public class HCurve {
     private int maxdiv = 9;
@@ -272,7 +273,7 @@ public class HCurve {
         boolean cwise = turnsClockwise();
         ++numofcurves;
 
-        for (int cid=0; cid<40; cid++) {
+        for (int cid=0; cid<curves.length; cid++) {
             Point A = (Point)curves[cid].get(0);
             Point B = (Point)curves[cid].get(1);
             addPoint(getNewpoint(A, B, A), cid+1);
@@ -309,7 +310,7 @@ public class HCurve {
         Point tangent = A.subtract(B);
         Point normal = new Point(-tangent.getY(), tangent.getX());
         normal = normal.divideBy(normal.vectorlength());
-        normal = normal.multBy(15.0);
+        normal = normal.multBy(5.0);
 
         return new Point(C.getX()+normal.getX(), C.getY()+normal.getY()); 
     }
