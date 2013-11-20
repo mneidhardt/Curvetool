@@ -58,22 +58,30 @@ public class HCurve {
 		   Otherwise it does not look good. */
 
 		if (pid == 0) {
-		    translateControlpoint(pid+1, newposition.subtract(oldpoint));
+		    translatePoint(pid+1, 0, newposition.subtract(oldpoint), true);
 	    }
 		else if (pid == curves[0].size()-1) {
-		    translateControlpoint(pid-1, newposition.subtract(oldpoint));
+		    translatePoint(pid-1, 0, newposition.subtract(oldpoint), true);
 		}
 		else {
-		    translateControlpoint(pid-1, newposition.subtract(oldpoint));
-		    translateControlpoint(pid+1, newposition.subtract(oldpoint));
+		    translatePoint(pid-1, 0, newposition.subtract(oldpoint), true);
+		    translatePoint(pid+1, 0, newposition.subtract(oldpoint), true);
 		}
+
+        /* Now also move the points in the expanded curves, if any.
+		   I think I also need to move their control points...
+		*/
+        for (int cid=1; cid<curves.length; cid++) {
+			translatePoint(pid, cid, newposition.subtract(oldpoint), false);
+        }
+
     }
 
-    public void translateControlpoint(int pid, Point translation) {
-        Point currentcp = (Point)curves[0].get(pid);
+    public void translatePoint(int pid, int cid, Point translation, boolean ctrlpoint) {
+        Point currentcp = (Point)curves[cid].get(pid);
         Point newcp = currentcp.add(translation);
-        newcp.setCPvalue(true);
-        curves[0].set(pid, newcp);
+        newcp.setCPvalue(ctrlpoint);
+        curves[cid].set(pid, newcp);
 	}
 
     public int getMaxdiv() { return maxdiv; }
