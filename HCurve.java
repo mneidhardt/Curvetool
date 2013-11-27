@@ -9,7 +9,7 @@ public class HCurve {
     private int norm=0;
     private int numofcurves=0;
     
-    private ArrayList[] curves = new ArrayList[100];
+    private ArrayList[] curves = new ArrayList[90];
 
     HCurve() {
         for (int i=0; i<curves.length; i++) {
@@ -46,38 +46,46 @@ public class HCurve {
     public void movePoint(int pid, Point newposition) {
 	    Point oldpoint = (Point)curves[0].get(pid);
 	    boolean cp = oldpoint.isControlPoint();
-		newposition.setCPvalue(cp);
-		curves[0].set(pid, newposition);
+		//newposition.setCPvalue(cp);
+		// curves[0].set(pid, newposition);
+
+        for (int cid=0; cid<curves.length; cid++) {
+			translatePoint(pid, cid, newposition.subtract(oldpoint), cp);
+        }
+
 
 		if (cp) {
 		    return;    // Nothing else to do if user moved a control point.
 		}
+
 
         /* If user moved a normal point, we also need to
 		   move the surrounding control points.
 		   Otherwise it does not look good. */
 
 		if (pid == 0) {
-		    translatePoint(pid+1, 0, newposition.subtract(oldpoint), true);
+            for (int cid=0; cid<curves.length; cid++) {
+                translatePoint(pid+1, cid, newposition.subtract(oldpoint), true);
+            }
 	    }
 		else if (pid == curves[0].size()-1) {
-		    translatePoint(pid-1, 0, newposition.subtract(oldpoint), true);
+            for (int cid=0; cid<curves.length; cid++) {
+                translatePoint(pid-1, cid, newposition.subtract(oldpoint), true);
+            }
 		}
 		else {
-		    translatePoint(pid-1, 0, newposition.subtract(oldpoint), true);
-		    translatePoint(pid+1, 0, newposition.subtract(oldpoint), true);
+            for (int cid=0; cid<curves.length; cid++) {
+                translatePoint(pid-1, cid, newposition.subtract(oldpoint), true);
+                translatePoint(pid+1, cid, newposition.subtract(oldpoint), true);
+            }
 		}
-
-        /* Now also move the points in the expanded curves, if any.
-		   I think I also need to move their control points...
-		*/
-        for (int cid=1; cid<curves.length; cid++) {
-			translatePoint(pid, cid, newposition.subtract(oldpoint), false);
-        }
-
     }
 
     public void translatePoint(int pid, int cid, Point translation, boolean ctrlpoint) {
+	    if (curves[cid].size() == 0) {
+		    return;
+		}
+
         Point currentcp = (Point)curves[cid].get(pid);
         Point newcp = currentcp.add(translation);
         newcp.setCPvalue(ctrlpoint);
@@ -318,7 +326,7 @@ public class HCurve {
         Point tangent = A.subtract(B);
         Point normal = new Point(-tangent.getY(), tangent.getX());
         normal = normal.divideBy(normal.vectorlength());
-        normal = normal.multBy(5.0);
+        normal = normal.multBy(4.0);
 
         return new Point(C.getX()+normal.getX(), C.getY()+normal.getY()); 
     }
