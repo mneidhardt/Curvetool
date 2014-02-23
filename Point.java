@@ -49,12 +49,17 @@ public class Point {
     }
 
     public String toString() {
+        return (int)this.x + " " + (int)this.y;
+    }
+
+/*
+    public String toString() {
         String msg = "NP: ";
 
         if (this.isControlPoint()) { msg = "CP: "; }
         return msg + "(" + this.x + ", " + this.y + ")";
     }
-
+*/
     public double getX() { return x; }
     public double getY() { return y; }
     public double getZ() { return z; }
