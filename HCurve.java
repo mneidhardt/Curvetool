@@ -6,16 +6,21 @@ import javax.swing.*;
 
 public class HCurve {
     private int maxdiv = 9;
+    private int maxcurves = 100;
     private int norm=0;
     private int numofcurves=0;
     
-    private ArrayList[] curves = new ArrayList[90];
+    private ArrayList[] curves = new ArrayList[maxcurves];
 
     HCurve() {
         for (int i=0; i<curves.length; i++) {
             curves[i] = new ArrayList<Point>();
         }
     }
+
+    public int numberofcurves() {
+	    return numofcurves;
+	}
 
     public void addPoint(Point p) {
         addPoint(p, 0);

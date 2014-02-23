@@ -83,8 +83,10 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
             drawCurve(g, c);
             drawPoints(g, c);
 
+			System.out.println("Now " + curve.numberofcurves() + " curves.");
+
             int sz = c.size();
-            for (int cid=1; cid<100; cid++) {
+            for (int cid=1; cid<curve.numberofcurves(); cid++) {
                 c = curve.getCurve(cid);
                 if (c.size() == sz) { drawCurve(g, c); }
             }

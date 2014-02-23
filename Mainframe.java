@@ -115,6 +115,12 @@ class Mainframe extends JFrame implements MouseListener, MouseMotionListener, Ac
          //drawarea.setPointState(st_deletepoint);
          //currcursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
       }
+      else if(e.getActionCommand() == "Bezier curve as Postscript") {
+         saySomething("Postscript...");
+         //psDialog = new PSDialog(this, "Bezier curve as Postscript", true,
+         //               drawarea.getBezierAsPostScript());
+         //psDialog.setVisible(true);
+      }
       else if(e.getActionCommand() == "Exit") {
          System.exit(0);
       }
