@@ -4,3 +4,19 @@ One use is just to have fun, another is to create graphic expressions
 that look like height curves (much like a map),
 another is to be able create GCODE for use in CNC/milling.
 
+Compile it this way:
+javac *.java
+
+Run it like this:
+java Intrpol
+
+Then put down a number of points, at least three,
+then click Expand followed by Interpolate.
+
+At the moment I use to create a Postscript file
+which is printed on overhead plastic, and then used for
+a print using photopolymer gravure.
+This is accomplished using File>Bezier curve as postscript.
+
+This sends ps commands to standard out, so you might want to redirect
+that to a file.
