@@ -1,3 +1,5 @@
+package dk.meem.curves;
+
 public class Point {
     private double x=0.0;
     private double y=0.0;

@@ -1,3 +1,5 @@
+package dk.meem.curves;
+
 import javax.swing.*;
 import java.awt.*;
 //import java.awt.Graphics;
