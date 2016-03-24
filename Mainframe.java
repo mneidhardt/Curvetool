@@ -14,6 +14,7 @@ class Mainframe extends JFrame implements MouseListener, MouseMotionListener, Ac
    JDialog helpDialog;
    JDialog aboutDialog;
    JRadioButton addPoint;       // Global as I need to access this.
+   // Just a comment to trigger Git changes
 
    int maxX=950, maxY=600;
    int ctrlareaHeight=120;
