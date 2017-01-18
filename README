@@ -1,10 +1,19 @@
-Curvetool, mapmaker, intrpol - I will eventually find a lasting name.
 The point of the software is to make a tool that helps 
 play around with curves.
 One use is just to have fun, another is to create graphic expressions
 that look like height curves (much like a map),
 another is to be able create GCODE for use in CNC/milling.
 
-I am not sure NURBS will ba a part of this anyway - the milling
-or CNC machines apparently just use linear approximation of curves
-using G01, and if that's the case, there's no need for me to intriduce NURBS.
+mvn clean package
+java -jar target/xxxxx
+
+Then put down a number of points, at least three,
+then click Expand followed by Interpolate.
+
+At the moment I use it to create a Postscript file
+which is printed on overhead plastic, and then used for
+a print using photopolymer gravure.
+This is accomplished using File>Bezier curve as postscript.
+
+This sends ps commands to standard out, so you might want to redirect
+that to a file.

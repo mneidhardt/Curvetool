@@ -1,3 +1,5 @@
+package dk.meem.curves;
+
 import javax.swing.*;
 import java.awt.*;
 //import java.awt.Graphics;
@@ -84,7 +86,7 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
             drawPoints(g, c);
 
             int sz = c.size();
-            for (int cid=1; cid<100; cid++) {
+            for (int cid=1; cid<curve.numberofcurves(); cid++) {
                 c = curve.getCurve(cid);
                 if (c.size() == sz) { drawCurve(g, c); }
             }
@@ -201,35 +203,17 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
-
-   // Simply returns the coordinates of the current point set as a string.
-/*
-    public String dumpCoordinates() {
-        pointset.flipAroundXAxis();
-        ArrayList[] points = pointset.getPoints();
-
-        String coords = String.valueOf(points[0].size()) + "\n";
-
-        for (int i=0; i<points[0].size(); i++) {
-            coords += i + " " + String.valueOf(Math.round((Float)points[0].get(i))) + " " +
-                      String.valueOf(Math.round((Float)points[1].get(i))) + "\n";
-        }
-
-        return coords;
-    }
-
-    public String getBezierAsPostScript() {
+    public String asPostscript() {
         String pscode = "";
 
-
-        if (curve.resultReady()) {
+        if (curve.isReady()) {
             pscode = "%.5 .5 scale % scale coordinate system(?)\n" +
                      "20 60 translate% put origin here\n" +
                      "% part 2: draw a filled path\n" +
                      "0 0 1 setrgbcolor\n" +
                      ".6 setlinewidth\n";
 
-            pscode += "hoo"; //getBezierData(pointset.getPoints(), ctrlpointset.getPoints());
+            pscode += getBezierData();
             pscode += "stroke % draw it.\n" +
                       "% part 3: now we'll put up some text\n" +
                       "%/Helvetica findfont 12 scalefont setfont\n" +
@@ -240,35 +224,33 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
         return pscode;
     }
 
-/*
-    public String getBezierData(ArrayList curve) {
+    public String getBezierData() {
         // Returns the coords. of points and controlpoints of the entire Bezier-curve
 
         String coords = "";
-        int ci=0;
 
-        for (int i=0; i<points[0].size()-1; i++) {
-                // First point P1:
-                coords += String.valueOf(Math.round((Float)points[0].get(i))) + " " +
-                String.valueOf(Math.round((Float)points[1].get(i))) + " moveto\n";
+        for (int cid=0; cid<curve.numberofcurves(); cid++) {
+        // for (int cid=0; cid<1; cid++) {
+            ArrayList c = curve.getCurve(cid);
 
-                // Then Controlpoint 1:
-                coords += String.valueOf(Math.round((Float)ctrlpoints[0].get(ci))) + " " +
-                String.valueOf(Math.round((Float)ctrlpoints[1].get(ci))) + "\n";
-        
-                // Then Controlpoint 2:
-                coords += String.valueOf(Math.round((Float)ctrlpoints[0].get(ci+1))) + " " +
-                String.valueOf(Math.round((Float)ctrlpoints[1].get(ci+1))) + "\n";
+            int i=0;
+            while (true) {
+                Point p1 = (Point)c.get(i);
+                Point p2 = (Point)c.get(i+1);
+                Point p3 = (Point)c.get(i+2);
+                Point p4 = (Point)c.get(i+3);
+                coords += p1.toString() + " moveto\n";
+                coords += p2.toString() + "\n";
+                coords += p3.toString() + "\n";
+                coords += p4.toString() + " curveto\n";
 
-                // First point P2:
-                coords += String.valueOf(Math.round((Float)points[0].get(i+1))) + " " +
-                String.valueOf(Math.round((Float)points[1].get(i+1))) + " curveto\n";
-                ci += 2;
+                if (i == c.size()-4) { break; }
+                i+=3;
+            }
         }
 
-        return coords;
-}
-*/
+		return coords;
+	}
 
     public void drawBezierCurve(Point P1, Point P2, Point P3, Point P4, int count, Graphics g) {
     

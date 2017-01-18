@@ -1,3 +1,5 @@
+package dk.meem.curves;
+
 import java.util.*;
 /*
 import java.awt.*;
@@ -6,16 +8,21 @@ import javax.swing.*;
 
 public class HCurve {
     private int maxdiv = 9;
+    private int maxcurves = 400;
     private int norm=0;
     private int numofcurves=0;
     
-    private ArrayList[] curves = new ArrayList[90];
+    private ArrayList[] curves = new ArrayList[maxcurves];
 
     HCurve() {
         for (int i=0; i<curves.length; i++) {
             curves[i] = new ArrayList<Point>();
         }
     }
+
+    public int numberofcurves() {
+	    return numofcurves;
+	}
 
     public void addPoint(Point p) {
         addPoint(p, 0);
@@ -326,7 +333,7 @@ public class HCurve {
         Point tangent = A.subtract(B);
         Point normal = new Point(-tangent.getY(), tangent.getX());
         normal = normal.divideBy(normal.vectorlength());
-        normal = normal.multBy(4.0);
+        normal = normal.multBy(5.0);
 
         return new Point(C.getX()+normal.getX(), C.getY()+normal.getY()); 
     }

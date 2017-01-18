@@ -1,3 +1,4 @@
+package dk.meem.curves;
 
 class test {
 

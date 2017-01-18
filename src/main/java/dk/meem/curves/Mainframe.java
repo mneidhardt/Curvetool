@@ -1,3 +1,5 @@
+package dk.meem.curves;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -115,6 +117,14 @@ class Mainframe extends JFrame implements MouseListener, MouseMotionListener, Ac
       else if (e.getActionCommand() == "delpoint") {
          //drawarea.setPointState(st_deletepoint);
          //currcursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
+      }
+      else if(e.getActionCommand() == "Bezier curve as Postscript") {
+         saySomething("Postscript...");
+		 saySomething(drawarea.asPostscript());
+
+         //psDialog = new PSDialog(this, "Bezier curve as Postscript", true,
+         //               drawarea.getBezierAsPostScript());
+         //psDialog.setVisible(true);
       }
       else if(e.getActionCommand() == "Exit") {
          System.exit(0);
